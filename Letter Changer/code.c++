@@ -3,38 +3,69 @@ using namespace std;
 
 int main() 
 {
-  string s;
-  int length,i;
-  cout << "s = ";                                           // Outputs the message to ask for the user input
-  cin >> s;
-  length = s.length();
-  cout << "Step 1: ";                                       // Outputs Step 1 
+/*
+ *
+ * This program takes the last half of the word, and flips the last letters twice
+ * CECS 275 - Spring 2022
+ * @author Issam Zantout
+ * @author Ryan Kaia
+ * @version 1.0.0
+ *
+ */
 
-  for (i=0; i<=(length-1)/2; i++)                           // For loop to print first unchanged half
+  string s, scopy;
+  scopy="";                                                // String s for the original string, scopy for the pushback of the changed string
+  int length, i, n,half;                                   // Int length for string length, int i for for loop index, int n for the step number
+  bool IsOne;                                              // Bool IsOne that changes if half got to one and keeps or exits loop
+  bool extra;
+  while(true)                                              // Loop that keeps asking an input from the user
   {
-    cout << s[i];                                           // Outputs each unchanged ith of the string
-  }
+    cout << endl << "Please enter a string: ";
+    cin >> s;
+    cout << endl << "You entered: " << s << endl << endl;
+    length = s.length();                                       // Calculates the length of the string inputed
+    half = length/2;                                           // Calculates the half of the length
+    IsOne = true;                                              // Set IsOne to true
+    n=1;
+    extra = false;
+    while(IsOne)                                               // While IsOne is true
+    {
+      if (half == 1 || half == 0)                              // If half reaches one or reaches zer if length = 1
+      {
+        IsOne = false;                                         // IsOne is false to break out of 2nd loop
+      }
+      else
+      {
+        IsOne = true;
+        cout << "Part " << n << ": ";                          // Cout part n for display and n changes
+        for (i=0; i<(length-half); i++)
+        {
+          scopy=scopy+s[i];
+          //scopy.push_back(s[i]);                             // For loop that prints the 1st half unchanged and adds those string parts to scopy
+        }
 
-  for(i=length-1; i>(length-1)/2; i--)                      // For loop for the change of the 2nd half
-  {
-    cout << s[i];                                           // Outputs the changed half
-  }
-  cout << "" << endl;
-  cout << "Step 2: ";                                       // Outputs Step 2
-
-  for (i=0; i<=(length-1)/2; i++)                           // For loop to output first unchanged half
-  {
-    cout << s[i];                                           // Outputs each unchanged ith of the string
-  }
-
-  for(i=length-1; i>=length-(length/4); i--)                // For loop to output 1st changed half that didnt change for the 2nd time
-  {
-    cout << s[i];                                           // Outputs the changed half
-  }
-
-  for (i=(length+1)/2; i<length-(length/4); i++)            // For loop to change the last half of the changed half
-  {
-    cout << s[i];                                           // Outputs the changed half
+        for(i=length-1; i>=length-half; i--)
+        {
+          scopy=scopy+s[i];
+          //scopy.push_back(s[i]);                             // For loop that prints the 2nd half changed and adds those string parts to scopy
+        }
+        
+        cout << scopy << endl;                                 // Cout scopy which is the part n
+        half = half/2;                                         // Divided half by 2 to make next iteration switch half of half
+        if (extra)
+        {
+          half=1;
+          cout << "Part " << n+1 << ": " << scopy << endl; 
+        }
+        if (half == 3)                                         // Checks if half was 3 and became 1.5 to add one more step
+        {
+          extra=true;      
+        }
+        n+=1;                                                  // Increase n after every iteration for display of part n
+        s = scopy;                                             // Set s = scopy for next iteration to change new s
+        scopy="";                                              // Set scopy to an empty string to pushback to an empty string
+      }
+    }
   }
   return 0;
-}     
+} 
