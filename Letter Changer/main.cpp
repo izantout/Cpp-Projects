@@ -3,16 +3,6 @@ using namespace std;
 
 int main() 
 {
-/*
- *
- * This program takes the last half of the word, and flips the last letters twice
- * CECS 275 - Spring 2022
- * @author Issam Zantout
- * @author Ryan Kaia
- * @version 1.0.0
- *
- */
-
   string s, scopy;
   scopy="";                                                // String s for the original string, scopy for the pushback of the changed string
   int length, i, n,half;                                   // Int length for string length, int i for for loop index, int n for the step number
