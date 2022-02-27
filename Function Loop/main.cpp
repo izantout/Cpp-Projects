@@ -3,15 +3,6 @@ using namespace std;
 
 int main() 
 {
-/*
- *
- * This program divides the number by 2 if its even and multiplies and adds 1 if its odd, then counts the numbers and displays how many numbers it outputed before reaching the number 1
- * CECS 275 - Spring 2022
- * @author Issam Zantout
- * @author Ryan Kaia
- * @Lab 1
- *
- */
   int number;
   int total;
   total = 1;
