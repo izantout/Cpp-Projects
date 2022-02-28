@@ -1,27 +1,29 @@
-  
-if (result_maxlength >= strlen(a))
+aLength = strlen(a);
+bLength = strlen(b);
+aSmallerLength = aLength-result_maxlength;
+if (result_maxlength >= aLength)
   {
-    for (int i=0; i<strlen(a); i++)
+    for (int i=0; i<aLength; i++)
       {
         cout << a[i];
       }
   }
-  else
+  else if (result_maxlength < aLength)
   {
-    for (int i=0; i < (strlen(a)-result_maxlength);i++)
+    for (int i=0; i < (aSmallerLength);i++)
       {
         cout << a[i];
       }
   }
-  if (strlen(a)-result_maxlength > 0)
+
+  if (aSmallerLength > 0)
   {
-    for (int i=0; i<strlen(a)-result_maxlength; i++)
+    for (int i=0; i<aLengt-result_maxlength; i++)
       {
         cout << b[i];
       }
   }
-  else
+  else if (aSmallerLength <= 0)
   {
    cout << ""; 
   }
-  cout << result << endl;
