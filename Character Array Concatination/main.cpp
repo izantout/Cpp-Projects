@@ -1,6 +1,4 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
 #include <cstring>
 
 using namespace std;
@@ -19,10 +17,10 @@ void concat(const char a[], const char b[], char result[], int result_maxlength)
 
 int main()
 {
-  char a[10] = "12345";
-  char b[10] = "6789";
+  char a[] = "12345";
+  char b[] = "6789";
   int resultlength = strlen(a) + strlen(b);
-  int result_maxlength = 5;
+  int result_maxlength = 3;
   char result[resultlength];
   
   concat(a, b, result, result_maxlength);
