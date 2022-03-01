@@ -1,29 +1,31 @@
-aLength = strlen(a);
-bLength = strlen(b);
-aSmallerLength = aLength-result_maxlength;
-if (result_maxlength >= aLength)
-  {
-    for (int i=0; i<aLength; i++)
-      {
-        cout << a[i];
-      }
-  }
-  else if (result_maxlength < aLength)
-  {
-    for (int i=0; i < (aSmallerLength);i++)
-      {
-        cout << a[i];
-      }
-  }
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cstring>
 
-  if (aSmallerLength > 0)
-  {
-    for (int i=0; i<aLengt-result_maxlength; i++)
-      {
-        cout << b[i];
-      }
-  }
-  else if (aSmallerLength <= 0)
-  {
-   cout << ""; 
-  }
+using namespace std;
+
+void concat(const char a[], const char b[],int result_maxlength)
+{
+  string temp;
+  int aLength = strlen(a);
+  int bLength = strlen(b);
+  for (int i=0; i<aLength; i++)
+    {
+      temp.push_back(a[i]);
+    }
+  for (int i=0; i<bLength; i++)
+    {
+      temp.push_back(b[i]);
+    }
+  for (int i=0; i<result_maxlength; i++)
+    {
+      cout << temp[i];
+    }
+}
+
+int main()
+{
+  concat("12345", "6789", 8);
+  return 0;
+}
