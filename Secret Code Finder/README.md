@@ -1,1 +1,1 @@
-This code gets an input from a text file, finds the secret message in the string provided and depending on the length needed and outputs it in a result text file.
+This code takes a text file with multiple lines, takes the string and makes substrings of length n depending on the user input and then outputs the most used substring in a result text file.
