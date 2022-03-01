@@ -1,10 +1,11 @@
 #include <iostream>
 
 using namespace std;
-//Prototypes
+
+// Prototypes
 void reverseFunction();
 
-//Function decleration
+// Function decleration
 void reverseFunction(char s[])
 {
   int charLength = strlen(s);  // Getting the length of the character array
@@ -12,7 +13,7 @@ void reverseFunction(char s[])
     {
       cout << s[charLength]; // cout the character starting from position char.length()
       --charLength; // decrease char length by 1
-    }
+    } // Outputs from the end of the character array to the beginning of the character array making the output the reverse of whatever was inputed.
 }
 
 int main()
