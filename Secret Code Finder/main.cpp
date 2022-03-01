@@ -17,18 +17,9 @@ int main() {
   int finalFrequency = 0;
   string finalString;
   string str, str2;
-  while (infile >> str)
+  while (infile >> n >> str)
   {
-    tempn ++;
-    if (tempn%2==0)
-    {
-      str = str;
-    }
-    else
-    {
-      n = stoi(str);
-    }
-  }
+  
   string list[(str.length() - (n - 1))];
   for (int i = 0; i < str.length() - (n - 1); i++) {
     str2 = str.substr(i, (i + n) - i);
@@ -36,9 +27,11 @@ int main() {
 
     int tempFreq = 0;
     for (int j = 0; j < (str.length() - (n - 1)); j++) {
-      if (str2 == list[j]) {
+      if (str2 == list[j])
+      {
         tempFreq++;
-        if (tempFreq > finalFrequency) {
+        if (tempFreq > finalFrequency) 
+        {
           finalFrequency = tempFreq;
           finalString = list[i];
         }
@@ -46,7 +39,8 @@ int main() {
     }
   }
   outfile << "The most used word is " << finalString
-<< " and this word is used " << finalFrequency << " times";
+<< " and this word is used " << finalFrequency << " times" << endl;
+    }
   infile.close();
   outfile.close();
   return 0;
