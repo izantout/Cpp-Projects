@@ -11,6 +11,12 @@ void concat(const char a[], const char b[], char result[], int result_maxlength)
 {
   strcpy(result, a); // Copy what is in a to result
   strcat(result, b); // Concatinate what is in b to result
+  int resultlength = strlen(a) + strlen(b);
+  if(result_maxlength>resultlength)
+  {
+    result_maxlength = resultlength;
+  }
+  
   for (int i=0; i<result_maxlength; i++) // for loop that goes from 0 to the number the user wants
     {
       cout << result[i]; // cout the result untill it reaches where the user specified
