@@ -112,6 +112,7 @@ int main()
   double average = 0.0;
   int max = 0;
   int min = 0;
+  int maxFrequency;
 
   // Output text file opening
   ofstream outfile("frequency.txt");
@@ -123,12 +124,24 @@ int main()
   vectorMin(myVec, min);
   averageFind(myVec, average);
 
+  for (int i=0;i<myVec.size();i++)
+  { // frequency counts how many times a number is in the vector
+  // This loop is to find out what is the max frequency of the most used number inside the vector
+    int frequency = count(myVec.begin(), myVec.end(), value); // counts the frequency of the number in the sorted vector
+    if (frequency > maxFrequency) // if the current frequency is greater than the max frequency
+    {
+      maxFrequency = frequency; // New maxFrequency is equal to the highest frequency
+    }
+    value ++; // value is increased
+    frequency  = 0; // frequency goes back to 0
+  }
   // Outfile code to format text file the way we want
+  value = 1; // value is set back to 1
   for (int i=0;i<myVec.size();i++)
     { // frequency counts how many times a number is in the vector
       int frequency = count(myVec.begin(), myVec.end(), value);
       // setw sets the width to alilgn the text in the output text file
-      outfile << setw(4) << value << ":" << string(frequency, '*') << setw(50-frequency) << "(" << frequency << ")" << endl;
+      outfile << setw(4) << value << ":" << string(frequency, '*') << setw((maxFrequency-frequency)+2) << "(" << frequency << ")" << endl;
       //string,frequency,* is just concatinating the number of stars depending on the frequency of the number
       //setw(50-frequency) to allign the frequency on the right when the number of stars change
       value ++; // value goes to the next number
