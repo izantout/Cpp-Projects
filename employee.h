@@ -24,13 +24,33 @@ class Employee{
     void deposit_monthly_salary();
     /*
     * Prints this employee's information to cout.
+      @ Param ofstream to outfile
     */
     void print(std::ofstream outfile);
+    /*
+    * Gets this employee's ID.
+    */
     std::string getID() ;
+    /*
+    * Gets this employee's last name.
+    */
     std::string getLast() const;
+    /*
+    * Gets this employee's first name
+    */
     std::string getFirst() const;
+    /*
+    * Gets this employee's salary.
+    */
     double getSalary() const;
+    /*
+    * Gets this employee's account using pointer
+    */
     BankAccount* getAccount() const;
+    /*
+    * Set's this employees salary.
+      @ Param double newSalary if we want to change the salary
+    */
     void setSalary(double newSalary);
 
     friend std::ostream& operator<<(std::ostream& os, const Employee& myEmployee);
