@@ -29,7 +29,7 @@ public:
     std::string get_id() const;
    /**
      Set id for bank account.
-     @return the balance
+     @ Param string id of the employee of the bank account
   */
     void set_id(std::string id);
 private:
