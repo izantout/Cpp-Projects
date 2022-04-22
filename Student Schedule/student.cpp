@@ -54,7 +54,19 @@ void Student::setLast(string mLast){
 }
 
 void Student::setSchedule(LinkedList<Course>* mmyCourse){
-  myCourses = mmyCourse;
+  cout << "I'm prepping to set the schedule " << endl;
+  while(myCourses->head){
+    cout << "Inside while1" << endl;
+    myCourses->deleteNode((myCourses->head)->value);
+  }
+  cout << "Between whiles" << endl;
+  ListNode<Course>* currentNode = mmyCourse->head; 
+  cout << "Directly before while" << endl;
+  while(currentNode != nullptr){
+    cout << "Inside while 2" << endl;
+    //myCourses->insertNode(currentNode->value);
+    currentNode = currentNode->next;
+  }
 }
 
 // Get initial function
@@ -77,19 +89,23 @@ void Student::addCourse(Course myCourse){
   myCourses->appendNode(myCourse);
 }
 
-// Sort Courses
-void Student::sortCourses(LinkedList<Course>* sortedCourses){ 
+void Student::sortCourses(){ 
+  LinkedList<Course> sortedCourses;
   ListNode<Course>* currentNode;
   if(myCourses->head){
     currentNode = myCourses->head;
-    cout << "I am here" << endl;
     while(currentNode){
-      cout << "Im in" << endl;
-      sortedCourses->insertNode(currentNode->value);
-      cout << "while 2" << endl;
+      sortedCourses.insertNode(currentNode->value);
       currentNode = currentNode->next;
     }
-    cout << "Im out" << endl;
+  while(myCourses->head){
+    myCourses->deleteNode((myCourses->head)->value);
+  }
+  ListNode<Course>* currentNode = sortedCourses.head; 
+  while(currentNode != nullptr){
+    myCourses->insertNode(currentNode->value);
+    currentNode = currentNode->next;
+  }
   }
 }
 
