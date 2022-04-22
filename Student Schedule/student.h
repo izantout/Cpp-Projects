@@ -42,7 +42,7 @@ class Student{
     void addCourse(Course myCourse);
 
     // Sort Courses
-    void sortCourses(LinkedList<Course>* sortedCourses);
+    void sortCourses();
 
     // toString 
     std::string toString();
