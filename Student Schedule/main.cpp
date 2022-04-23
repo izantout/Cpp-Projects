@@ -28,4 +28,6 @@ int main()
     Issam.sortCourses();
     cout << "After Sorting" << endl;
     cout << Issam.toString() << endl;
+    cout << "Initials: " << Issam.getInitial() << endl;
+    cout << "Full Name: " << Issam.getFullName() << endl;
   }
