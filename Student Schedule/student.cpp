@@ -54,24 +54,24 @@ void Student::setLast(string mLast){
 }
 
 void Student::setSchedule(LinkedList<Course>* mmyCourse){
-  cout << "I'm prepping to set the schedule " << endl;
-  while(myCourses->head){
-    cout << "Inside while1" << endl;
-    myCourses->deleteNode((myCourses->head)->value);
+  while(myCourses->head){ //while not empty
+    myCourses->deleteNode((myCourses->head)->value); // Delete the nodes of myCourses for us to add different stuff to it
   }
-  cout << "Between whiles" << endl;
   ListNode<Course>* currentNode = mmyCourse->head; 
-  cout << "Directly before while" << endl;
-  while(currentNode != nullptr){
-    cout << "Inside while 2" << endl;
-    //myCourses->insertNode(currentNode->value);
-    currentNode = currentNode->next;
+  while(currentNode != nullptr){// while nott the end of the linked list
+    myCourses->insertNode(currentNode->value);
+    currentNode = currentNode->next; //
   }
 }
 
 // Get initial function
 string Student::getInitial(){
-  return to_string(firstName[0]) + "." + to_string(lastName[0]) + ".";
+  string finalString = "";
+  finalString += firstName[0]; 
+  finalString += ".";
+  finalString += lastName[0];
+  finalString += ".";
+  return finalString;
 }
 
 // Get Full Name Function
