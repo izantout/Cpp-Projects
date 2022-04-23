@@ -58,6 +58,6 @@ void Course::setCSemester(string mCSemester, string mYear){
 }
 
 //ToString Function
-string Course::toString(){
+string Course::toString(){ // returns the info in a nice format
   return courseSemester + " " + courseNumber + ": " + courseTime + "\n";
 }
