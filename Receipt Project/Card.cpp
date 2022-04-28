@@ -29,6 +29,10 @@ string Card::getPin(){
   return cardPin;
 }
 
+string Card::getType(){
+  return cardType;
+}
+
 // Setters
 void Card::setNumber(string mNumber){
   cardNumber = mNumber;
@@ -36,6 +40,10 @@ void Card::setNumber(string mNumber){
 
 void Card::setPin(string mPin){
   cardPin = mPin;
+}
+
+void Card::setType(string mType){
+  cardType = mType;
 }
 
 // toString function
