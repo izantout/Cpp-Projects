@@ -1,8 +1,8 @@
-void printVector(const vector<int>& myVec)
+void printVector(vector<string>& myVec)
 {
-  for(int val : myVec)
+  for(int i=0; i<myVec.size(); i++)
     {
-      cout << val << " ";
+      cout << myVec[i] << " ";
     }
   cout << endl;
 }
