@@ -18,49 +18,45 @@ void printVector(vector<string> myVec);
 string printBarcode();
 string toUpper(string value);
 void itemScan(vector<string>& items);
-void Payments(Information myInfo, int& total);
-void InventoryUpdate(vector<string>& items, vector<Products>& myInventory, int& total);
+void Payments(Information myInfo, double& total);
+void InventoryUpdate(vector<string>& items, vector<Products>& myInventory, double& total);
 
 // ***** Main Function *****
 int main() 
 {
+  // ***** Needed for final submission *****
+  Products Milk("Milk", "023443", 10, 12.99);
+  Products Water("Water", "023444", 10, 1.99);
   vector<Products> myInventory;
   vector<string> items;
-  int total;
+  Information myInfo("888 WALL STORE ST \n WALL ST CITY, LA 88888", "WALMART", "(888) 888 - 8888", "MANAGER TOD LINGA", "10/17/2022", "16:12", "Save this receipt and get $10 off your next purchase of $50 or more!", 7.89);
+  double total=0;
   // *******Card function testing area*******
   // Card myCard("0987654321324", "9283");
   // cout << myCard.toString() << endl;
   // ****************************************
 
   // *******Information function testing area*******
-  // Information myInfo("888 WALL STORE ST \n WALL ST CITY, LA 88888", "WALMART", "(888) 888 - 8888", "MANAGER TOD LINGA", "10/17/2022", "16:12", "Save this receipt and get $10 off your next purchase of $50 or more!", 7.89);
+
   // cout << "TOP: \n" << myInfo.toStringTop() << endl;
   // cout << "MID: \n" << myInfo.toStringMiddle() << endl;
   // cout << "BOTTOM: \n" << myInfo.toStringBottom() << endl;
   // ***********************************************
 
   // *******Products function testing area*******
-  Products Milk("Milk", "023443", 10, 12.99);
-  Products Water("Water", "023444", 10, 1.99);
   myInventory.push_back(Milk);
   myInventory.push_back(Water);
-  printVector(myInventory);
   // *******************************************
 
   // *******Main function testing area*******
   itemScan(items);
-  // printVector(items);
-  cout << total << endl;
   InventoryUpdate(items, myInventory, total);
-  printVector(myInventory);
-  // Payments(myInfo);
-  cout << total << endl;
-  // cout << printBarcode();
+  Payments(myInfo, total);
   // ****************************************
 }
 
 // ***** Functions *****
-void Payments(Information myInfo, int& total)
+void Payments(Information myInfo, double& total)
 {
   string paySelection = "", cardNumber = "", cardType = "", cardPin = "";
   bool flag = true;
@@ -96,9 +92,12 @@ void Payments(Information myInfo, int& total)
     }
     else if(toUpper(paySelection) == "CASH")
     {
-      double cash, total = 30 + (30*myInfo.getTax());
-      // Get total of all purchases
-      cout << "Your total is: " << total << endl << "Please insert cash: ";
+      double cash;
+      cout << "Your total is: " << total << endl;
+      cout << "Tax" << myInfo.getTax() << endl;
+      total = total + (total * myInfo.getTax());
+      cout << "Final Total is: " << total << endl;
+      cout << "Please insert cash: ";
       cin >> cash;
       if (cash > total)
       {
@@ -188,7 +187,7 @@ void printVector(vector<string> myVec)
   cout << endl;
 }
 
-void InventoryUpdate(vector<string>& items, vector<Products>& myInventory, int& total)
+void InventoryUpdate(vector<string>& items, vector<Products>& myInventory, double& total)
 {
   for (int i=0; i<items.size(); i++)
   {
