@@ -17,6 +17,12 @@ Products::Products(string mName, string SNumber, int mQuantity, double mPrice){
   price = mPrice;
 }
 
+Products::Products(string mName, string SNumber, double mPrice){
+  name = mName;
+  SerialNumber = SNumber;
+  price = mPrice;
+}
+
 // Getters
 string Products::getName(){
   return name;
