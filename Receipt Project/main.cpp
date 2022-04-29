@@ -21,7 +21,7 @@ string toUpper(string value);
 void itemScan(vector<string>& items);
 void Payments(Information myInfo, double& total);
 void InventoryUpdate(vector<string>& items, vector<Products>& myInventory, double& total);
-string buySummary(vector<string>& items, vector<Products>& myInventory);
+void buySummary(vector<string>& items, vector<Products>& myInventory, vector<Products>& myProducts);
 
 // ***** Main Function *****
 int main() 
@@ -31,6 +31,7 @@ int main()
   Products Water("Water", "023444", 10, 1.99);
   vector<Products> myInventory;
   vector<string> items;
+  vector<Products> finalProducts;
   Information myInfo("888 WALL STORE ST \n WALL ST CITY, LA 88888", "WALMART", "(888) 888 - 8888", "MANAGER TOD LINGA", "10/17/2022", "16:12", "Save this receipt and get $10 off your next purchase of $50 or more!", 7.89);
   double total=0;
   Receipt myReceipt;
@@ -55,9 +56,10 @@ int main()
   // *******************************************
 
   // *******Main Code Execution Area*******
-  itemScan(items);
-  InventoryUpdate(items, myInventory, total);
-  Payments(myInfo, total);
+  // itemScan(items);
+  // InventoryUpdate(items, myInventory, total);
+  // Payments(myInfo, total);
+  cout << buySummary(items, myInventory);
   // ****************************************
 }
 
@@ -211,17 +213,15 @@ void InventoryUpdate(vector<string>& items, vector<Products>& myInventory, doubl
   }
 }
 
-string buySummary(vector<string>& items, vector<Products>& myInventory){
-  string summary = "";
+void buySummary(vector<string>& items, vector<Products>& myInventory, vector<Products>& myProducts){
   for (int i=0; i<items.size(); i++)
   {
     for (int j=0; j<myInventory.size(); j++)
     {
       if(items[i] == myInventory[j].getSNumber())
       {
-        final = final + myInventory[j].getName() + "   " + myInventory[j].getSNumber() + "     " + to_string(myInventory[j].getPrice());
+        Products(myInventory[j].getName(), myInventory[j].getSNumber(), myInventory[j].getPrice());
       }
     }
   }
-  return summary;
 }
