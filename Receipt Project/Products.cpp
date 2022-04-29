@@ -64,3 +64,7 @@ string Products::toString(){
          "Quantity: " + to_string(quantity) + "\n" + 
          "Price: " +  to_string(price);
 }
+
+string Products::toString2(){
+  return name + "      " + SerialNumber + "      " + to_string(price);
+}
