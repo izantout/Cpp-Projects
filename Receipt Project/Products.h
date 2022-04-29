@@ -25,6 +25,7 @@ class Products{
 
     // ToString
     std::string toString();
+    std::string toString2();
 
   private:
     std::string name;
