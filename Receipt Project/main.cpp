@@ -4,6 +4,7 @@
 #include <string>
 #include <cstring>
 #include <algorithm>
+#include <fstream>
 
 // ***** Class Files *****
 #include "Products.h"
@@ -27,12 +28,13 @@ void buySummary(vector<string>& items, vector<Products>& myInventory, vector<Pro
 int main() 
 {
   // ***** Needed for final submission *****
+  ofstream outfile("Receipt.txt");
   Products Milk("Milk", "023443", 10, 12.99);
   Products Water("Water", "023444", 10, 1.99);
   vector<Products> myInventory;
   vector<string> items;
   vector<Products> finalProducts;
-  Information myInfo("888 WALL STORE ST \n WALL ST CITY, LA 88888", "WALMART", "(888) 888 - 8888", "MANAGER TOD LINGA", "10/17/2022", "16:12", "Save this receipt and get $10 off your next purchase of $50 or more!", 7.89);
+  Information myInfo("888 WALL STORE ST \n                             WALL ST CITY, LA 88888", "WALMART", "(888) 888 - 8888", "MANAGER TOD LINGA", "10/17/2022", "16:12", "Save this receipt and get $10 off your next purchase of $50 or more!", 7.89);
   double total=0;
   Receipt myReceipt;
   myReceipt.setHeader(myInfo.toStringTop());
@@ -56,10 +58,13 @@ int main()
   // *******************************************
 
   // *******Main Code Execution Area*******
-  // itemScan(items);
-  // InventoryUpdate(items, myInventory, total);
-  // Payments(myInfo, total);
-  cout << buySummary(items, myInventory);
+  itemScan(items);
+  InventoryUpdate(items, myInventory, total);
+  Payments(myInfo, total);
+  buySummary(items, myInventory, finalProducts);
+  myReceipt.setSummary(finalProducts);
+
+  outfile << myReceipt.toString();
   // ****************************************
 }
 
@@ -94,7 +99,7 @@ void Payments(Information myInfo, double& total)
         cout << "SLIDE" << endl << "ACCEPTED" << endl;
         cout << "Printing Receipt... " << endl;
         flag = false;
-        Card myCard(cardNumber, "0000", cardBrand);
+        Card myCard(cardNumber, cardBrand);
       }
       else
       {
@@ -170,9 +175,9 @@ void printVector(vector<Products> myInventory)
 
 string Barcode()
 {
-  string Barcode = "|||||||||";
+  string Barcode = "||||||||||||||||||||||||";
   srand(time(0));
-  for(int i=0; i<3; i++)
+  for(int i=0; i<5; i++)
   {
     int random = (rand() % 10);
     Barcode.replace(random,1," ");
@@ -220,7 +225,7 @@ void buySummary(vector<string>& items, vector<Products>& myInventory, vector<Pro
     {
       if(items[i] == myInventory[j].getSNumber())
       {
-        Products(myInventory[j].getName(), myInventory[j].getSNumber(), myInventory[j].getPrice());
+        myProducts.push_back(Products(myInventory[j].getName(), myInventory[j].getSNumber(), myInventory[j].getPrice()));
       }
     }
   }
