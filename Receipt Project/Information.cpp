@@ -117,7 +117,7 @@ void Information::setTax(double mTax)
 
 //toString functions
 string Information::toStringTop(){
-  return Logo + "\n" + Number + "\n" + Name + "\n" + Address + "\n";
+  return "                                  " + Logo + "\n" + "                             " + Number + "\n" + "                             " + Name + "\n" + "                             " + Address + "\n";
 }
 
 string Information::toStringMiddle(){
