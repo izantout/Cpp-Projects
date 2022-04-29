@@ -1,6 +1,9 @@
 #include <iostream>
-#include "Receipt.h"
 #include <string>
+#include <vector>
+#include "Receipt.h"
+#include "Products.h"
+
 
 using namespace std;
 Receipt::Receipt(){
@@ -39,8 +42,11 @@ void Receipt::setHeader(string mheader){
   header = mheader;
 }
 
-void Receipt::setSummary(string mSummary){
-  buySummary = mSummary;
+void Receipt::setSummary(vector<Products> myProducts){
+  for (Products i : myProducts)
+    {
+      cout << i.toString() << endl;
+    }
 }
 
 void Receipt::setBarcode(string mBarcode){
