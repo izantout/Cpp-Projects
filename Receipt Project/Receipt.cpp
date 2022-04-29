@@ -10,7 +10,7 @@ Receipt::Receipt(){
   
 }
 
-Receipt::Receipt(string mheader, string mbuySummary, string mbarcode, string mfooter){
+Receipt::Receipt(string mheader, vector<Products> mbuySummary, string mbarcode, string mfooter){
   header = mheader;
   buySummary = mbuySummary;
   barcode = mbarcode;
@@ -26,9 +26,10 @@ string Receipt::getHeader(){
   return header;
 }
 
-string Receipt::getSummary(){
+vector <Products> Receipt::getSummary(){
   return buySummary;
 }
+
 string Receipt::getBarcode(){
   return barcode;
 }
@@ -42,22 +43,30 @@ void Receipt::setHeader(string mheader){
   header = mheader;
 }
 
-void Receipt::setSummary(vector<Products> myProducts){
-  for (Products i : myProducts)
-    {
-      cout << i.toString() << endl;
-    }
+void Receipt::setSummary(vector<Products> mmyProducts){
+  buySummary = mmyProducts;
 }
 
 void Receipt::setBarcode(string mBarcode){
-  barcode = mBarcode;
+  barcode = "                            " + mBarcode;
 }
 
 void Receipt::setFooter(string mFooter){
   footer = mFooter;
 }
 
+string Receipt::trial(){
+  string str;
+  for (Products i : buySummary)
+    {
+      str+= "                 ";
+      str += i.toString2();
+      str += "\n";
+    }
+  return str;
+}
+
 //toString Function
 string Receipt::toString(){
-  return header + "\n" + "\n" + buySummary + "\n" + "\n" + barcode + "\n" + "\n" + footer;
+  return header + "\n" + "\n" + trial() + "\n" + "\n" + barcode + "\n" + "\n" + footer;
 }
