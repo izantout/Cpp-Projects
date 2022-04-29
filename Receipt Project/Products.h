@@ -9,7 +9,8 @@ class Products{
 
     // Overloaded Constructor
     Products(std::string mName, std::string SNumber, int mQuantity, double mPrice);
-    
+
+    Products(std::string mName, std::string SNumber, double mPrice);
     // Getters
     std::string getName();
     std::string getSNumber();
