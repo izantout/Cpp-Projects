@@ -10,9 +10,15 @@ Card::Card(){
 }
 
 // Overloaded Contrustor
-Card::Card(std::string mNumber, std::string mPin){
+Card::Card(string mNumber, string mPin, string mType){
   cardNumber = mNumber;
   cardPin = mPin;
+  cardType = mType;
+}
+
+Card::Card(string mNumber, string mType){
+  cardNumber = mNumber;
+  cardType = mType;
 }
 
 //Destructor
