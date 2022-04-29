@@ -1,7 +1,9 @@
 #ifndef RECEIPT_H
 #define RECEIPT_H
+#include "Products.h"
 #include <iostream>
 #include <string>
+#include <vector>
 
 class Receipt{
   public:
@@ -17,7 +19,7 @@ class Receipt{
     
     // Setters
     void setHeader(std::string mheader);
-    void setSummary(std::string mSummary);
+    void setSummary(std::vector<Products> myProducts);
     void setBarcode(std::string mBarcode);
     void setFooter(std::string mFooter);
 
