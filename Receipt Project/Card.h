@@ -10,7 +10,8 @@ class Card{
     Card();
 
     // Overloaded Contrustor
-    Card(std::string mNumber, std::string mPin);
+    Card(std::string mNumber, std::string mPin, std::string mType);
+    Card(std::string mNumber, std::string mType);
 
     //Destructor
     ~Card();
