@@ -9,17 +9,19 @@
 #include "Products.h"
 #include "Information.h"
 #include "Card.h"
+#include "Receipt.h"
 
 using namespace std;
 
 // ***** Prototypes ***** 
 void printVector(vector<Products> myInventory);
 void printVector(vector<string> myVec);
-string printBarcode();
+string Barcode();
 string toUpper(string value);
 void itemScan(vector<string>& items);
 void Payments(Information myInfo, double& total);
 void InventoryUpdate(vector<string>& items, vector<Products>& myInventory, double& total);
+string buySummary(vector<string>& items, vector<Products>& myInventory);
 
 // ***** Main Function *****
 int main() 
@@ -31,6 +33,10 @@ int main()
   vector<string> items;
   Information myInfo("888 WALL STORE ST \n WALL ST CITY, LA 88888", "WALMART", "(888) 888 - 8888", "MANAGER TOD LINGA", "10/17/2022", "16:12", "Save this receipt and get $10 off your next purchase of $50 or more!", 7.89);
   double total=0;
+  Receipt myReceipt;
+  myReceipt.setHeader(myInfo.toStringTop());
+  myReceipt.setBarcode(Barcode());
+  myReceipt.setFooter(myInfo.toStringBottom());
   // *******Card function testing area*******
   // Card myCard("0987654321324", "9283");
   // cout << myCard.toString() << endl;
@@ -48,7 +54,7 @@ int main()
   myInventory.push_back(Water);
   // *******************************************
 
-  // *******Main function testing area*******
+  // *******Main Code Execution Area*******
   itemScan(items);
   InventoryUpdate(items, myInventory, total);
   Payments(myInfo, total);
@@ -58,7 +64,7 @@ int main()
 // ***** Functions *****
 void Payments(Information myInfo, double& total)
 {
-  string paySelection = "", cardNumber = "", cardType = "", cardPin = "";
+  string paySelection = "", cardNumber = "", cardType = "", cardPin = "", cardBrand = "";
   bool flag = true;
   cout << "Would you like to pay with cash or card? ";
   cin >> paySelection;
@@ -67,23 +73,26 @@ void Payments(Information myInfo, double& total)
   {
     if (toUpper(paySelection) == "CARD")
     {
-      cout << "Please Slid Your Card: ";
+      cout << "Please Slid or Enter Your Card: ";
       cin >> cardNumber;
       cout << "Is your card Debit or Credit: ";
       cin >> cardType;
+      cout << "What is your card type(e.g. Visa, MasterCard...): ";
+      cin >> cardBrand;
       if (toUpper(cardType) == "DEBIT")
       {
         cout << "Please enter the Pin: ";
         cin >> cardPin;
-        cout << "Printing Receipt... " << endl;
+        cout << "SLIDE" << endl << "ACCEPTED" << endl << "Printing Receipt... " << endl;
         flag = false;
-        Card myCard(cardNumber, cardPin);
+        Card myCard(cardNumber, cardPin, cardBrand);
       }
       else if(toUpper(cardType) == "CREDIT")
       {
+        cout << "SLIDE" << endl << "ACCEPTED" << endl;
         cout << "Printing Receipt... " << endl;
         flag = false;
-        Card myCard(cardNumber, "0000");
+        Card myCard(cardNumber, "0000", cardBrand);
       }
       else
       {
@@ -93,10 +102,10 @@ void Payments(Information myInfo, double& total)
     else if(toUpper(paySelection) == "CASH")
     {
       double cash;
-      cout << "Your total is: " << total << endl;
-      cout << "Tax" << myInfo.getTax() << endl;
+      cout << "Subtotal: " << total << endl;
+      cout << "Tax: " << myInfo.getTax()*total << endl;
       total = total + (total * myInfo.getTax());
-      cout << "Final Total is: " << total << endl;
+      cout << "Balance due: " << total << endl;
       cout << "Please insert cash: ";
       cin >> cash;
       if (cash > total)
@@ -157,7 +166,7 @@ void printVector(vector<Products> myInventory)
   }
 }
 
-string printBarcode()
+string Barcode()
 {
   string Barcode = "|||||||||";
   srand(time(0));
@@ -200,4 +209,19 @@ void InventoryUpdate(vector<string>& items, vector<Products>& myInventory, doubl
       }
     }
   }
+}
+
+string buySummary(vector<string>& items, vector<Products>& myInventory){
+  string summary = "";
+  for (int i=0; i<items.size(); i++)
+  {
+    for (int j=0; j<myInventory.size(); j++)
+    {
+      if(items[i] == myInventory[j].getSNumber())
+      {
+        final = final + myInventory[j].getName() + "   " + myInventory[j].getSNumber() + "     " + to_string(myInventory[j].getPrice());
+      }
+    }
+  }
+  return summary;
 }
