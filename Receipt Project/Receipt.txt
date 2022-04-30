@@ -6,12 +6,17 @@
 
 
                  Milk      023443      12.990000
-                 Milk      023443      12.990000
+                             Subtotal: 12.990000
+                             Tax: 7.890000
+                             Total: 14.000000
+                          CREDIT ACCEPTED 
+                          Change: 0.00
+                 ACCOUNT:  1234
+                          # ITEMS BOUGHT: 1
 
+                            || ||   ||||||||||||||||
 
-                            |   ||||| ||||||||||||||
-
-Save this receipt and get $10 off your next purchase of $50 or more!
-Thank You for Shopping With Us! 
-10/17/2022    16:12
-***** CUSTOMER COPY *****
+                          $10 off a purchase of $50 or more!
+                          Thank You for Shopping With Us! 
+                             10/17/2022    16:12
+                          ***** CUSTOMER COPY *****
