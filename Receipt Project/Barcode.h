@@ -28,9 +28,6 @@ class Barcode{
     void setName(std::string mname);
     void setNumber(std::string mnumber);
 
-    // toString function
-    std::string toString();
-
   private:
     std::string barcode;
     std::string date;
