@@ -125,5 +125,5 @@ string Information::toStringMiddle(){
 }
 
 string Information::toStringBottom(){
-  return Coupons + "\n" + "Thank You for Shopping With Us! \n" + Date + "    " + Time + "\n" + "***** CUSTOMER COPY *****";
+  return Coupons + "\n" + "                          Thank You for Shopping With Us! \n" + "                             " + Date + "    " + Time + "\n" + "                          ***** CUSTOMER COPY *****";
 }
