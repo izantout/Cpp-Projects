@@ -20,7 +20,7 @@ void printVector(vector<string> myVec);
 string Barcode();
 string toUpper(string value);
 void itemScan(vector<string>& items);
-void Payments(Information myInfo, double& total);
+void Payments(Information& myInfo, double& total, Receipt& myReceipt, vector<string>& items);
 void InventoryUpdate(vector<string>& items, vector<Products>& myInventory, double& total);
 void buySummary(vector<string>& items, vector<Products>& myInventory, vector<Products>& myProducts);
 
@@ -34,7 +34,7 @@ int main()
   vector<Products> myInventory;
   vector<string> items;
   vector<Products> finalProducts;
-  Information myInfo("888 WALL STORE ST \n                             WALL ST CITY, LA 88888", "WALMART", "(888) 888 - 8888", "MANAGER TOD LINGA", "10/17/2022", "16:12", "Save this receipt and get $10 off your next purchase of $50 or more!", 7.89);
+  Information myInfo("888 WALL STORE ST \n                             WALL ST CITY, LA 88888", "WALMART", "(888) 888 - 8888", "MANAGER TOD LINGA", "10/17/2022", "16:12", "$10 off a purchase of $50 or more!", 7.89);
   double total=0;
   Receipt myReceipt;
   myReceipt.setHeader(myInfo.toStringTop());
@@ -60,8 +60,9 @@ int main()
   // *******Main Code Execution Area*******
   itemScan(items);
   InventoryUpdate(items, myInventory, total);
-  Payments(myInfo, total);
+  Payments(myInfo, total, myReceipt, items);
   buySummary(items, myInventory, finalProducts);
+  myReceipt.setTax(myInfo.getTax());
   myReceipt.setSummary(finalProducts);
 
   outfile << myReceipt.toString();
@@ -69,8 +70,9 @@ int main()
 }
 
 // ***** Functions *****
-void Payments(Information myInfo, double& total)
+void Payments(Information& myInfo, double& total, Receipt& myReceipt, vector<string>& items)
 {
+  
   string paySelection = "", cardNumber = "", cardType = "", cardPin = "", cardBrand = "";
   bool flag = true;
   cout << "Would you like to pay with cash or card? ";
@@ -93,6 +95,12 @@ void Payments(Information myInfo, double& total)
         cout << "SLIDE" << endl << "ACCEPTED" << endl << "Printing Receipt... " << endl;
         flag = false;
         Card myCard(cardNumber, cardPin, cardBrand);
+        string str = "DEBIT ACCEPTED \n                          Change: 0.00";
+        str += "\n                 ACCOUNT:  ";
+        str += myCard.toString();
+        str += "\n                          # ITEMS BOUGHT: ";
+        str += to_string(items.size());
+        myReceipt.setPayment(str);
       }
       else if(toUpper(cardType) == "CREDIT")
       {
@@ -100,6 +108,12 @@ void Payments(Information myInfo, double& total)
         cout << "Printing Receipt... " << endl;
         flag = false;
         Card myCard(cardNumber, cardBrand);
+        string str = "CREDIT ACCEPTED \n                          Change: 0.00";
+        str += "\n                 ACCOUNT:  ";
+        str += myCard.toString();
+        str += "\n                          # ITEMS BOUGHT: ";
+        str += to_string(items.size());
+        myReceipt.setPayment(str);
       }
       else
       {
@@ -118,11 +132,20 @@ void Payments(Information myInfo, double& total)
       if (cash > total)
       {
         cout << "Your change is " << cash-total << endl << "Printing Receipt..." << endl;
+        string str = "CASH \n                          Change: ";
+        str += to_string(cash-total);
+        str += "\n                          # ITEMS BOUGHT: ";
+        str += to_string(items.size());
+        myReceipt.setPayment(str);
         flag = false;
       }
       else if(cash == total)
       {
         cout << "Printing Receipt..." << endl;
+        string str = "CASH \n                          Change: 0.00";
+        str += "\n                          # ITEMS BOUGHT: ";
+        str += to_string(items.size());
+        myReceipt.setPayment(str);
         flag = false;
       }
       else
@@ -135,6 +158,10 @@ void Payments(Information myInfo, double& total)
           cin >> cash;
         }
         cout << "Printing Receipt..." << endl;
+        string str = "CASH \nChange: 0.00";
+        str += "\n                          # ITEMS BOUGHT: ";
+        str += to_string(items.size());
+        myReceipt.setPayment(str);
         flag = false;
       }
     }
