@@ -1,43 +1,109 @@
-#ifndef RECEIPT_H
-#define RECEIPT_H
-#include "Products.h"
 #include <iostream>
 #include <string>
 #include <vector>
+#include <math.h> 
+#include "Receipt.h"
+#include "Products.h"
+#include "Information.h"
 
-class Receipt{
-  public:
-    Receipt();
-    Receipt(std::string mheader, std::vector<Products> mbuySummary, std::string mbarcode, std::string mfooter, double tax);
-    ~Receipt();
+using namespace std;
 
-    // Getters
-    std::string getHeader();
-    std::vector<Products> getSummary();
-    std::string getBarcode();
-    std::string getFooter();
-    std::string getPayment();
-    double getTax();
-    
-    // Setters
-    void setHeader(std::string mheader);
-    void setSummary(std::vector<Products> mmyProducts);
-    void setBarcode(std::string mBarcode);
-    void setFooter(std::string mFooter);
-    void setTax(double mTax);
-    void setPayment(std::string mPayment);
+Receipt::Receipt(){
+  
+}
 
-    //toString Function
-    std::string toString();
-    std::string Summary();
+Receipt::Receipt(string mheader, vector<Products> mbuySummary, string mbarcode, string mfooter, double mTax){
+  header = mheader;
+  buySummary = mbuySummary;
+  barcode = mbarcode;
+  footer = mfooter;
+  tax = mTax;
+}
 
-  private:
-    std::string header;
-    std::vector<Products> buySummary;
-    std::string barcode;
-    std::string footer;
-    double tax;
-    std::string payment;
-};
+Receipt::~Receipt(){
+  
+}
 
-#endif
+// Getters
+string Receipt::getHeader(){
+  return header;
+}
+
+vector <Products> Receipt::getSummary(){
+  return buySummary;
+}
+
+string Receipt::getBarcode(){
+  return barcode;
+}
+
+string Receipt::getFooter(){
+  return footer;
+}
+
+double Receipt::getTax(){
+  return tax;
+}
+
+string Receipt::getPayment(){
+  return payment;
+}
+
+
+// Setters
+void Receipt::setHeader(string mheader){
+  header = mheader;
+}
+
+void Receipt::setSummary(vector<Products> mmyProducts){
+  buySummary = mmyProducts;
+}
+
+void Receipt::setBarcode(string mBarcode){
+  barcode = "                            " + mBarcode;
+}
+
+void Receipt::setFooter(string mFooter){
+  footer = "                          " + mFooter;
+}
+
+void Receipt::setTax(double mTax){
+  tax = mTax;
+}
+
+void Receipt::setPayment(string mPayment){
+  payment = mPayment;
+}
+
+
+string Receipt::Summary(){
+  string str;
+  double total;
+  for (Products i : buySummary)
+    {
+      str+= "                 ";
+      str += i.toString2();
+      str += "\n";
+      total += i.getPrice();
+    }
+  str += "                             ";
+  str += "Subtotal: ";
+  str += to_string(total);
+  str += "\n";
+  str += "                             ";
+  str += "Tax: ";
+  str += to_string(tax*100);
+  str += "\n";
+  str += "                             ";
+  str += "Total: ";
+  str += to_string(round(total + (total*tax)));
+  str += "\n";
+  str += "                          ";
+  str += payment;
+  return str;
+}
+
+//toString Function
+string Receipt::toString(){
+  return header + "\n" + "\n" + Summary() + "\n" + "\n" + barcode + "\n" + "\n" + footer;
+}
