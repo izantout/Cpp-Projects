@@ -78,6 +78,3 @@ void Barcode::setName(string mname){
 void Barcode::setNumber(string mnumber){
   cashierNumber = mnumber;
 }
-
-string toString(){
-}
