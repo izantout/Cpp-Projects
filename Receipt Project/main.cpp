@@ -1,61 +1,70 @@
-// ***** Libraries *****
+// ****** Libraries ******
 #include <iostream>
 #include <vector>
 #include <string>
 #include <cstring>
 #include <algorithm>
 #include <fstream>
+#include <math.h> 
+// ***********************
 
 // ***** Class Files *****
 #include "Products.h"
 #include "Information.h"
 #include "Card.h"
 #include "Receipt.h"
+#include "Barcode.h"
+// ***********************
 
 using namespace std;
 
 // ***** Prototypes ***** 
 void printVector(vector<Products> myInventory);
 void printVector(vector<string> myVec);
-string Barcode();
 string toUpper(string value);
 void itemScan(vector<string>& items);
 void Payments(Information& myInfo, double& total, Receipt& myReceipt, vector<string>& items);
 void InventoryUpdate(vector<string>& items, vector<Products>& myInventory, double& total);
 void buySummary(vector<string>& items, vector<Products>& myInventory, vector<Products>& myProducts);
+float rounding(float value, float r = 2);
 
 // ***** Main Function *****
 int main() 
 {
   // ***** Needed for final submission *****
   ofstream outfile("Receipt.txt");
-  Products Milk("Milk", "023443", 10, 12.99);
-  Products Water("Water", "023444", 10, 1.99);
+  
+  // *****PRODUCTS*****
+  Products Bananas("Banana", "023442", 10, 3.99);
+  Products Milk("Milk", "023443", 10, 10.99);
+  Products Shoes("Shoes", "023444", 10, 34.99);
+  Products Water("Water", "023445", 10, 1.99);
+  Products Pepsi("Pepsi", "023446", 50, 1.99);
+  Products Laptop("HPGL", "023447", 4, 1799.99);
+  // ******************
+  
+  Information myInfo("888 WALL STORE ST \n                             WALL ST CITY, LA 88888", "WALMART", "(888) 888 - 8888", "MANAGER TOD LINGA", "10/17/2022", "16:12", "$10 off a purchase of $50 or more!", 7.89);
+  Receipt myReceipt;
+  Barcode myBarcode(myInfo.getdate(), myInfo.getTime(), "Issam Zantout", "Cashier Number 2");
   vector<Products> myInventory;
   vector<string> items;
   vector<Products> finalProducts;
-  Information myInfo("888 WALL STORE ST \n                             WALL ST CITY, LA 88888", "WALMART", "(888) 888 - 8888", "MANAGER TOD LINGA", "10/17/2022", "16:12", "$10 off a purchase of $50 or more!", 7.89);
   double total=0;
-  Receipt myReceipt;
+
+  // *******Receipt Creation*******
   myReceipt.setHeader(myInfo.toStringTop());
-  myReceipt.setBarcode(Barcode());
+  myReceipt.setBarcode(myBarcode.getBarcode());
   myReceipt.setFooter(myInfo.toStringBottom());
-  // *******Card function testing area*******
-  // Card myCard("0987654321324", "9283");
-  // cout << myCard.toString() << endl;
-  // ****************************************
-
-  // *******Information function testing area*******
-
-  // cout << "TOP: \n" << myInfo.toStringTop() << endl;
-  // cout << "MID: \n" << myInfo.toStringMiddle() << endl;
-  // cout << "BOTTOM: \n" << myInfo.toStringBottom() << endl;
-  // ***********************************************
-
-  // *******Products function testing area*******
+  // ******************************
+  
+  // *******Products Vector Creation*******
+  myInventory.push_back(Bananas);
   myInventory.push_back(Milk);
+  myInventory.push_back(Shoes);
   myInventory.push_back(Water);
-  // *******************************************
+  myInventory.push_back(Pepsi);
+  myInventory.push_back(Laptop);
+  // **************************************
 
   // *******Main Code Execution Area*******
   itemScan(items);
@@ -68,8 +77,9 @@ int main()
   outfile << myReceipt.toString();
   // ****************************************
 }
+// *************************
 
-// ***** Functions *****
+// ******* Functions *******
 void Payments(Information& myInfo, double& total, Receipt& myReceipt, vector<string>& items)
 {
   
@@ -124,14 +134,14 @@ void Payments(Information& myInfo, double& total, Receipt& myReceipt, vector<str
     {
       double cash;
       cout << "Subtotal: " << total << endl;
-      cout << "Tax: " << myInfo.getTax()*total << endl;
-      total = total + (total * myInfo.getTax());
+      cout << "Tax: " << rounding(myInfo.getTax()*total) << endl;
+      total = rounding(total + (total * myInfo.getTax()));
       cout << "Balance due: " << total << endl;
       cout << "Please insert cash: ";
       cin >> cash;
       if (cash > total)
       {
-        cout << "Your change is " << cash-total << endl << "Printing Receipt..." << endl;
+        cout << "Your change is " << rounding(cash-total) << endl << "Printing Receipt..." << endl;
         string str = "CASH \n                          Change: ";
         str += to_string(cash-total);
         str += "\n                          # ITEMS BOUGHT: ";
@@ -150,15 +160,25 @@ void Payments(Information& myInfo, double& total, Receipt& myReceipt, vector<str
       }
       else
       {
+        float change;
         while(cash<total)
         {
-          total = total-cash;
+          total = rounding(total-cash);
           cout << "You still owe: " << total << endl;
           cout << "Please insert cash: ";
           cin >> cash;
         }
         cout << "Printing Receipt..." << endl;
-        string str = "CASH \nChange: 0.00";
+        if (cash > total)
+        {
+          change =  rounding(cash-total);
+        }
+        else
+        {
+          change = 0;
+        }
+        string str = "CASH \n                          Change: ";
+        str += to_string(change);
         str += "\n                          # ITEMS BOUGHT: ";
         str += to_string(items.size());
         myReceipt.setPayment(str);
@@ -200,18 +220,6 @@ void printVector(vector<Products> myInventory)
   }
 }
 
-string Barcode()
-{
-  string Barcode = "||||||||||||||||||||||||";
-  srand(time(0));
-  for(int i=0; i<5; i++)
-  {
-    int random = (rand() % 10);
-    Barcode.replace(random,1," ");
-  }
-  return Barcode;
-}
-
 string toUpper(string value)
 {
   for (int i=0;i<value.length(); i++)
@@ -245,7 +253,8 @@ void InventoryUpdate(vector<string>& items, vector<Products>& myInventory, doubl
   }
 }
 
-void buySummary(vector<string>& items, vector<Products>& myInventory, vector<Products>& myProducts){
+void buySummary(vector<string>& items, vector<Products>& myInventory, vector<Products>& myProducts)
+{
   for (int i=0; i<items.size(); i++)
   {
     for (int j=0; j<myInventory.size(); j++)
@@ -257,3 +266,10 @@ void buySummary(vector<string>& items, vector<Products>& myInventory, vector<Pro
     }
   }
 }
+
+float rounding(float value, float r)
+{
+  float pow_10 = pow(10.0f, r);
+  return round(value * pow_10) / pow_10;
+}
+// *************************
