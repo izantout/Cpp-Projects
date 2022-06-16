@@ -31,6 +31,8 @@ class Books{
     void setPages(int mpages);
     void setPrice(double mprice);
     void setContent(std::string mContent);
+
+    friend Books operator++(Books myBooks);
 };
 
 
