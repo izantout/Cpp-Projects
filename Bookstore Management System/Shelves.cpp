@@ -1,5 +1,6 @@
 #include <iostream>
 #include <algorithm>
+#include <vector>
 #include <string.h>
 #include <ctype.h>
 #include "Shelves.h"
@@ -8,6 +9,7 @@ using namespace std;
 
 void getBooks();
 void setBooks();
+void checkoutBook();
 void orderBooks(vector<Books> myBooks);
 bool comparing(string str1, string str2);
 string toUpper(string mystring);
@@ -87,4 +89,15 @@ bool comparing(string str1, string str2){
     }
   }
   return flag;
+}
+
+void Shelves::checkoutBook(){
+  string bookName;
+  cout << "Please enter the name of the book you want to checkout: ";
+  getline(cin, bookName);
+  for(int i=0; i<myBooks.size();i++){
+    if(comparing(toUpper(myBooks[i].getName()), bookName)){
+      myBooks.erase(myBooks[i]);
+    }
+  }
 }
