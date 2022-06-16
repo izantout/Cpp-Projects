@@ -11,12 +11,13 @@ class Books{
     int Pages;
     double Price;
     std::string Content;
+    int inventory;
 
   public:
 
     Books();
     Books(std::string mName);
-    Books(std::string mName, std::string mAuthorName, std::string mAuthorLast, int mPages, double mPrice, std::string mContent);
+    Books(std::string mName, std::string mAuthorName, std::string mAuthorLast, int mPages, double mPrice, std::string mContent, int minventory);
     ~Books();
 
     std::string getName();
