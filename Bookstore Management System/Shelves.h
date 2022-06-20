@@ -17,6 +17,8 @@ class Shelves{
     void setBooks(std::vector<Books> mmyBooks);
     void orderBooks(std::vector <Books> myBooks);
     void searchfor();
+    void searchforE();
+    //void checkoutBook(std::string bookName);
 
     friend bool operator==(const std::string& left, const std::string& right);
 
