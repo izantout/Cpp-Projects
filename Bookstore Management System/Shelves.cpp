@@ -9,7 +9,7 @@ using namespace std;
 
 void getBooks();
 void setBooks();
-void checkoutBook();
+void checkoutBook(string bookName, vector<Books> myBooks, int copyNumber);
 void orderBooks(vector<Books> myBooks);
 bool comparing(string str1, string str2);
 string toUpper(string mystring);
@@ -46,15 +46,32 @@ void Shelves::orderBooks(vector<Books> myBooks){
 }
 
 void Shelves::searchfor(){
+  int copyNumber;
   string bookName;
-  bool flag = true;
+  string checkoutChoice;
+  bool flag;
   cout << "Please enter the book name you want to search for: ";
   getline(cin, bookName);
-  for(int i=0;i<myBookNames.size();i++){
-    flag = comparing(myBookNames[i], bookName);
+  for(Books i : myBooks){
+    flag = comparing(i.getName(), bookName);
     if(flag){
-      cout << "We have the book in the library" << endl;
-      break;
+      cout << "We have " << i.getInventory() << " copies in the library and it costs $" << i.getPrice() << "." << endl << "Would you like to buy this book? (yes or no) ";
+      getline(cin, checkoutChoice);
+      if(comparing(toUpper(checkoutChoice), "YES")){
+        cout << "How many copies would you like to buy? ";
+        cin >> copyNumber;
+        checkoutBook(i.getName(), myBooks, copyNumber);
+        cout << "Enjoy your book and come again" << endl;
+        break;
+      }
+      else if(comparing(toUpper(checkoutChoice), "NO")){
+        cout << "Ok, thank you... See you next time" << endl;
+        break;
+      }
+      else{
+        cout << "Invalid input... Try again" << endl;
+        break;
+      }
     }
   }
   if(!flag){
@@ -91,13 +108,12 @@ bool comparing(string str1, string str2){
   return flag;
 }
 
-void Shelves::checkoutBook(){
-  string bookName;
-  cout << "Please enter the name of the book you want to checkout: ";
-  getline(cin, bookName);
-  for(int i=0; i<myBooks.size();i++){
-    if(comparing(toUpper(myBooks[i].getName()), bookName)){
-      myBooks.erase(myBooks[i]);
+void checkoutBook(string bookName, vector<Books> myBooks, int copyNumber){
+  for(Books i : myBooks){
+    if(comparing(i.getName(),bookName)){
+      cout << "Your total is: $" << i.getPrice()*copyNumber << endl;
+      i.setInventory(i.getInventory()-copyNumber);
+      cout << "The remaining number of copies for " << i.getName() << " is: " << i.getInventory() << endl;
     }
   }
 }
