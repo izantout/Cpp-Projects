@@ -14,13 +14,30 @@ Books::Books(string mName){
   Name = mName;
 }
 
-Books::Books(string mName, string mAuthorName, string mAuthorLast, int mPages, double mPrice, string mContent){
+Books::Books(string mName, string mbookNumber){
+  Name = mName;
+  bookNumber = mbookNumber;
+}
+
+Books::Books(string mName, string mAuthorName, string mAuthorLast, int mPages, double mPrice, int minventory, string mbookNumber){
+  Name = mName;
+  AuthorName = mAuthorName;
+  AuthorLast = mAuthorLast;
+  Pages = mPages;
+  Price = mPrice;
+  inventory = minventory;
+  bookNumber = mbookNumber;
+}
+
+Books::Books(string mName, string mAuthorName, string mAuthorLast, int mPages, double mPrice, string mContent, int minventory, string mbookNumber){
   Name = mName;
   AuthorName = mAuthorName;
   AuthorLast = mAuthorLast;
   Pages = mPages;
   Price = mPrice;
   Content = mContent;
+  inventory = minventory;
+  bookNumber = mbookNumber;
 }
 
 Books::~Books(){
@@ -46,6 +63,14 @@ string Books::getContent(){
   return Content;
 }
 
+string Books::getNumber(){
+  return bookNumber;
+}
+
+int Books::getInventory(){
+  return inventory;
+}
+
 void Books::setName(string mname){
   Name = mname;
 }
@@ -65,6 +90,10 @@ void Books::setPrice(double mprice){
 
 void Books::setContent(string mContent){
   Content = pageMaker(mContent);
+}
+
+void Books::setInventory(int mInventory){
+  inventory = mInventory;
 }
 
 string pageMaker(string mContent){
