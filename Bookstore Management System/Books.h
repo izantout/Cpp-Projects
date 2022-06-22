@@ -3,6 +3,8 @@
 
 #include <string>
 
+using namespace std;
+
 class Books{
   private:
     std::string Name;
@@ -15,29 +17,123 @@ class Books{
     std::string bookNumber;
 
   public:
+    Books(){
+      
+    }
 
-    Books();
-    Books(std::string mName);
-    Books(std::string mName, std::string mbookNumber);
-    Books(std::string mName, std::string mAuthorName, std::string mAuthorLast, int mPages, double mPrice, int minventory, std::string mbookNumber);
-    Books(std::string mName, std::string mAuthorName, std::string mAuthorLast, int mPages, double mPrice, std::string mContent, int minventory, std::string mbookNumber);
-    ~Books();
+    Books(string mName){
+      Name = mName;
+    }
 
-    std::string getName();
-    std::string getAuthor();
-    int getPages();
-    double getPrice();
-    std::string getContent();
-    std::string getNumber();
-    int getInventory();
+    Books(string mName, string mbookNumber){
+      Name = mName;
+      bookNumber = mbookNumber;
+    }
 
-    void setName(std::string mname);
-    void setAuthor(std::string mAuthorfirst,            std::string mAutherLast);
-    void setPages(int mpages);
-    void setPrice(double mprice);
-    void setContent(std::string mContent);
-    void setInventory(int mInventory);
+    Books(string mName, string mAuthorName, string mAuthorLast, int mPages, double mPrice, int minventory, string mbookNumber){
+      Name = mName;
+      AuthorName = mAuthorName;
+      AuthorLast = mAuthorLast;
+      Pages = mPages;
+      Price = mPrice;
+      inventory = minventory;
+      bookNumber = mbookNumber;
+    }
 
+    Books(string mName, string mAuthorName, string mAuthorLast, int mPages, double mPrice, string mContent, int minventory, string mbookNumber){
+      Name = mName;
+      AuthorName = mAuthorName;
+      AuthorLast = mAuthorLast;
+      Pages = mPages;
+      Price = mPrice;
+      Content = mContent;
+      inventory = minventory;
+      bookNumber = mbookNumber;
+    }
+
+    ~Books(){
+      
+    }
+
+    string getName(){
+      return Name;
+    }
+    string getAuthor(){
+      return AuthorName + ", " + AuthorLast;
+    }
+
+    int getPages(){
+      return Pages;
+    }
+
+    double getPrice(){
+      return Price;
+    }
+
+    string getContent(){
+      return Content;
+    }
+
+    string getNumber(){
+      return bookNumber;
+    }
+
+    int getInventory(){
+      return inventory;
+    }
+
+    void setName(string mname){
+      Name = mname;
+    }
+
+    void setAuthor(string mAuthorFirst, string mAutherLast){
+      AuthorName = mAuthorFirst;
+      AuthorLast = mAutherLast;
+    }
+
+    void setPages(int mpages){
+      Pages = mpages;
+    }
+
+    void setPrice(double mprice){
+      Price = mprice;
+    }
+
+    void setContent(string mContent){
+      Content = pageMaker(mContent);
+    }
+
+    void setInventory(int mInventory){
+      inventory = mInventory;
+    }
+
+    string pageMaker(string mContent){
+      string final;
+      int spaceCount = 0;
+      int pageCount = 1;
+      for (char i : mContent){
+        final.push_back(i);
+        if (i == ' '){
+          spaceCount ++;
+          final.push_back(i);
+        }
+        if (spaceCount >= 100){
+          final.push_back('\n');
+          final.push_back('\n');
+          final += "                                                     Page ";
+          final += to_string(pageCount);
+          final.push_back('\n');
+          final.push_back('\n');
+          pageCount ++;
+          spaceCount = 0;
+        }
+      }
+      final.push_back('\n');
+      final.push_back('\n');
+      final += "Page ";
+      final += to_string(pageCount);
+      return final;
+    }
 };
 
 
