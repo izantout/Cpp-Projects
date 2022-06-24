@@ -7,14 +7,14 @@ using namespace std;
 
 class Books{
   private:
-    std::string Name;
-    std::string AuthorName;
-    std::string AuthorLast;
+    string Name;
+    string AuthorName;
+    string AuthorLast;
     int Pages;
     double Price;
-    std::string Content;
+    string Content;
     int inventory;
-    std::string bookNumber;
+    string bookNumber;
 
   public:
     Books(){
@@ -130,7 +130,7 @@ class Books{
       }
       final.push_back('\n');
       final.push_back('\n');
-      final += "Page ";
+      final += "                                                     Page ";
       final += to_string(pageCount);
       return final;
     }
