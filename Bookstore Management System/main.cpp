@@ -36,4 +36,6 @@ string myString = "Write whatever paragraph you want here! ";
   outfile << myBooks.getContent(); // outfiles the content
   myShelf.getBooks(); // gets books on shelves
   myShelf.searchfor();
+  myShelf.EmployeeCheckout();
+  myShelf.returnBook();
 }
