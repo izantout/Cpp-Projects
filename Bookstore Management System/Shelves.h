@@ -13,8 +13,8 @@ using namespace std;
 
 class Shelves{
   private:
-    std::vector<Books> myBooks;
-    std::vector<std::string> myBookNames;
+    vector<Books> myBooks;
+    vector<string> myBookNames;
 
   public:
 
@@ -124,6 +124,48 @@ class Shelves{
           i.setInventory(i.getInventory()-copyNumber);
           cout << "The remaining number of copies for " << i.getName() << " is: " << i.getInventory() << endl;
         }
+      }
+    }
+
+    void EmployeeCheckout(){
+      bool flag;
+      string bookNumber;
+      cout << "Please scan the book: ";
+      cin >> bookNumber;
+      for (Books i : myBooks){
+        if(comparing(i.getNumber(), bookNumber)){
+          flag = true;
+          cout << "Checking out " << i.getName() << "..." << endl << "The total is $" << i.getPrice() << endl;
+          cout << "Thank you and have a nice day!" << endl;
+          break;
+        }
+        else{
+          flag = false;
+        }
+      }
+      if(!flag){
+        cout << "We dont have the book in the library. Try again! " << endl;
+      }
+    }
+
+    void returnBook(){
+      string bookNumber;
+      bool flag;
+      cout << "Please enter the book number you are trying to return: ";\
+      cin >> bookNumber;
+      for (Books i : myBooks){
+        if(comparing(i.getNumber(), bookNumber)){
+          flag = true;
+          cout << "Book returned. Thank you! " << endl;
+          i.setInventory(i.getInventory()+1);
+          break;
+        }
+        else{
+          flag = false;
+        }
+      }
+      if(!flag){
+        cout << "This book is not in our inventory " << endl;
       }
     }
 
