@@ -1,26 +1,25 @@
 class Solution {
 public:
-
-    void printMap(unordered_map<char, int> myMap){
+    template<typename K, typename V>
+    void printUnorderedMap(const unordered_map<K, V>& myMap) {
+        cout << '[';
         for (const auto& pair : myMap) {
-            cout << pair.first << ": " << pair.second << endl;
+            cout << pair.first << ':' << pair.second << ',';
         }
-        cout << endl;
-    };
+        cout << ']' << endl;
+    }
 
     int lengthOfLongestSubstring(string s) {
-        unordered_map<char, int> charMap;
-        int maxLength = 0, start = -1;
-        for (int i = 0; i < s.size(); ++i) {
-            printMap(charMap);
-            // CONTAINS
-            if (charMap.count(s[i]) > 0) {
-                // New start is current index
-                start = max(start, charMap[s[i]]);
+        int longest = 0;
+        unordered_map<char, int> myMap; // Use char as the key type
+
+        for (int start = 0, end = 0; end < s.length(); ++end) {
+            if (myMap.count(s[end]) > 0) {
+                start = max(start, myMap[s[end]] + 1); // Update the starting index
             }
-            charMap[s[i]] = i;
-            maxLength = max(maxLength, i - start);
+            myMap[s[end]] = end;
+            longest = max(longest, end - start + 1);
         }
-        return maxLength;
+        return longest;
     }
 };
