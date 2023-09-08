@@ -11,13 +11,17 @@ public:
 
     int lengthOfLongestSubstring(string s) {
         int longest = 0;
-        unordered_map<char, int> myMap; // Use char as the key type
-
-        for (int start = 0, end = 0; end < s.length(); ++end) {
-            if (myMap.count(s[end]) > 0) {
-                start = max(start, myMap[s[end]] + 1); // Update the starting index
+        unordered_map<int, int> myMap;
+        // Go through each character of s
+        for(int start=0, end=0; end<s.length(); ++end){
+            // if the character is in the map already
+            if(myMap.count(s[end]) > 0){
+                // Update the start value
+                start = max(start, myMap[s[end]] + 1);
             }
+            // Add the character to the map
             myMap[s[end]] = end;
+            // Update longest value
             longest = max(longest, end - start + 1);
         }
         return longest;
